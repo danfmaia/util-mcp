@@ -4,6 +4,19 @@ General-purpose MCP server providing utility tools for Computer Agent ecosystem 
 
 ## Features
 
+### DateTime Tools ⭐ NEW
+
+- **Tool**: `get_current_datetime`
+- **Purpose**: Get current date/time in any timezone with multiple format options
+- **Status**: ✅ **Ready** - No configuration required
+- **Timezones**: Full pytz database support (UTC, US/Eastern, Europe/London, America/Sao_Paulo, etc.)
+- **Formats**: ISO, readable, timestamp, custom
+
+- **Tool**: `calculate_time_difference`
+- **Purpose**: Calculate time differences between dates or from a date to now
+- **Status**: ✅ **Ready** - No configuration required
+- **Features**: Detailed breakdown (days, hours, minutes, seconds), multiple input formats
+
 ### Read.AI Meeting Downloader
 
 - **Tool**: `download_meeting_data`
@@ -51,6 +64,27 @@ The server is configured in `/home/danfmaia/.cursor/mcp.json`:
 uv run util_server.py
 ```
 
+### Testing DateTime Tools
+
+```bash
+uv run python test_datetime.py
+```
+
+## Usage Examples
+
+### DateTime Tools
+
+**Get current time in different timezones:**
+
+- `get_current_datetime("UTC", "readable")` → "Tuesday, September 09, 2025 at 11:56:34 PM UTC"
+- `get_current_datetime("America/Sao_Paulo", "iso")` → "2025-09-09T20:56:34-03:00"
+- `get_current_datetime("US/Eastern", "custom")` → "2025-09-09 19:56:34 EDT"
+
+**Calculate time differences:**
+
+- `calculate_time_difference("2025-09-09 10:00:00", "2025-09-09 14:30:00", "UTC")` → "4 hours, 30 minutes"
+- `calculate_time_difference("2025-09-08 15:00:00", "", "UTC")` → Time from yesterday 3pm to now
+
 ## Technical Constraints
 
 ### Read.AI API Limitation
@@ -69,6 +103,7 @@ uv run util_server.py
 
 - `mcp`: Model Context Protocol framework
 - `httpx`: HTTP client for potential API calls
+- `pytz`: Timezone database for datetime operations
 - `fastmcp`: Simplified MCP server development
 
 ## Development
